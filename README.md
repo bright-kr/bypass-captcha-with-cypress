@@ -1,6 +1,6 @@
 # Cypress로 CAPTCHA 우회하기
 
-[![Promo](https://github.com/luminati-io/LinkedIn-Scraper/raw/main/Proxies%20and%20scrapers%20GitHub%20bonus%20banner.png)](https://brightdata.co.kr/)
+[![Promo](https://github.com/bright-kr/LinkedIn-Scraper/raw/main/Proxies%20and%20scrapers%20GitHub%20bonus%20banner.png)](https://brightdata.co.kr/)
 
 이 가이드는 Cypress에서 CAPTCHA를 처리하는 방법을 설명하며, 효과적인 우회 방법과 CAPTCHA가 계속 나타날 때 무엇을 해야 하는지까지 다루어 원활한 브라우저 자동화를 보장합니다.
 
@@ -25,13 +25,13 @@ CAPTCHA는 **C**ompletely **A**utomated **P**ublic **T**uring test to tell **C**
 - **오디오 기반 CAPTCHA** – 사용자가 오디오 클립에서 들리는 단어를 입력해야 합니다.  
 - **퍼즐 CAPTCHA** – 특정 객체를 클릭하거나 질문에 답하는 등 간단한 과제를 해결합니다.  
 
-![Puzzle CAPTCHA example](https://github.com/luminati-io/bypass-captcha-with-cypress/blob/main/images/Puzzle-CAPTCHA-example-1.png)
+![Puzzle CAPTCHA example](https://github.com/bright-kr/bypass-captcha-with-cypress/blob/main/images/Puzzle-CAPTCHA-example-1.png)
 
 ### CAPTCHA가 사용되는 방식
 
 CAPTCHA는 봇이 자동으로 작업을 완료하지 못하도록, 폼 제출과 같은 중요한 사용자 플로우에 자주 통합됩니다:  
 
-![CAPTCHA in form submission process](https://github.com/luminati-io/bypass-captcha-with-cypress/blob/main/images/CAPTCHA-as-a-step-of-a-form-submission-process-example.png)
+![CAPTCHA in form submission process](https://github.com/bright-kr/bypass-captcha-with-cypress/blob/main/images/CAPTCHA-as-a-step-of-a-form-submission-process-example.png)
 
 이러한 경우 CAPTCHA는 항상 표시되며 단순한 자동화 기법으로는 우회할 수 없습니다. 일부 CAPTCHA 해결 서비스는 사람 운영자 또는 특화된 AI 모델을 사용해 이러한 과제를 실시간으로 해결하지만, 하드코딩된 CAPTCHA는 사용자 경험에 부정적인 영향을 주기 때문에 비교적 드뭅니다.
 
@@ -39,7 +39,7 @@ CAPTCHA는 봇이 자동으로 작업을 완료하지 못하도록, 폼 제출�
 
 더 일반적으로 CAPTCHA는 Web Application Firewalls(WAFs)와 같은 고급 アンチボット 시스템의 일부입니다([Learn More](https://www.cloudflare.com/learning/ddos/glossary/web-application-firewall-waf/)):  
 
-![Web Application Firewall example](https://github.com/luminati-io/bypass-captcha-with-cypress/blob/main/images/Example-of-a-Web-Application-Firewall-1024x488.png)
+![Web Application Firewall example](https://github.com/bright-kr/bypass-captcha-with-cypress/blob/main/images/Example-of-a-Web-Application-Firewall-1024x488.png)
 
 이러한 시스템에서 CAPTCHA는 웹사이트가 사용자가 봇일 수 있다고 의심할 때 동적으로 트리거됩니다. 즉, 실제 브라우저를 사용하고 사람의 상호작용을 모방하는 등 봇이 실제 인간처럼 행동하도록 만들면 때로는 이를 피할 수 있습니다.
 
@@ -70,7 +70,7 @@ CAPTCHA는 Cypress의 주요 과제 중 하나이지만, 아직 포기할 때는
 
 이 키를 사용하는 동안에는 아래와 같은 reCAPTCHA “No CAPTCHA” 위젯이 항상 표시됩니다:
 
-![](https://github.com/luminati-io/bypass-captcha-with-cypress/blob/main/images/recaptcha_test.png)
+![](https://github.com/bright-kr/bypass-captcha-with-cypress/blob/main/images/recaptcha_test.png)
 
 이 설정은 CAPTCHA가 프로덕션 용도가 아님을 나타내는 특별 경고 메시지를 표시합니다. 이 메시지를 클릭하도록 자동화하면 アンチボット 검증이 항상 통과됩니다. 자세한 내용은 [reCAPTCHA documentation](https://developers.google.com/recaptcha/docs/faq#id-like-to-run-automated-tests-with-recaptcha.-what-should-i-do)에서 확인할 수 있습니다.
 
@@ -80,13 +80,13 @@ CAPTCHA는 Cypress의 주요 과제 중 하나이지만, 아직 포기할 때는
 
 일부 CAPTCHA는 reCAPTCHA “No CAPTCHA” 위젯에서 볼 수 있듯이 체크박스를 클릭하는 것과 같은 기본 상호작용만 요구합니다.  
 
-![Simple clicking CAPTCHA example](https://github.com/luminati-io/bypass-captcha-with-cypress/blob/main/images/Simple-clicking-CAPTCHA-example.png)
+![Simple clicking CAPTCHA example](https://github.com/bright-kr/bypass-captcha-with-cypress/blob/main/images/Simple-clicking-CAPTCHA-example.png)
 
 이러한 챌린지는 단순해 보일 수 있지만, 종종 사용자가 인간인지 확인하기 위해 마우스 움직임과 기타 행동 신호를 분석합니다. 하지만 모든 CAPTCHA가 이 정도로 고도화되어 있지는 않습니다. 일부는 기본적인 봇만 차단하도록 설계되어 우회가 더 쉬울 수 있습니다. 이러한 경우 Cypress 로직으로 자동화할 수 있는 가능성이 있습니다.  
 
 위 예시의 CAPTCHA 요소를 검사해 보면, 해당 요소가 iframe 안에 임베드되어 있음을 확인할 수 있습니다.
 
-![Inspecting the CAPTCHA element](https://github.com/luminati-io/bypass-captcha-with-cypress/blob/main/images/Inspecting-the-CAPTCHA-element-1024x510.png)
+![Inspecting the CAPTCHA element](https://github.com/bright-kr/bypass-captcha-with-cypress/blob/main/images/Inspecting-the-CAPTCHA-element-1024x510.png)
 
 이는 대부분의 CAPTCHA 제공업체에서 흔히 나타나는 동작입니다.
 
