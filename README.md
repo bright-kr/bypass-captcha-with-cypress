@@ -35,19 +35,19 @@ CAPTCHA는 봇이 자동으로 작업을 완료하지 못하도록, 폼 제출�
 
 이러한 경우 CAPTCHA는 항상 표시되며 단순한 자동화 기법으로는 우회할 수 없습니다. 일부 CAPTCHA 해결 서비스는 사람 운영자 또는 특화된 AI 모델을 사용해 이러한 과제를 실시간으로 해결하지만, 하드코딩된 CAPTCHA는 사용자 경험에 부정적인 영향을 주기 때문에 비교적 드뭅니다.
 
-### 고급 アンチボット 솔루션에서의 CAPTCHA
+### 고급 안티봇 솔루션에서의 CAPTCHA
 
-더 일반적으로 CAPTCHA는 Web Application Firewalls(WAFs)와 같은 고급 アンチボット 시스템의 일부입니다([Learn More](https://www.cloudflare.com/learning/ddos/glossary/web-application-firewall-waf/)):  
+더 일반적으로 CAPTCHA는 Web Application Firewalls(WAFs)와 같은 고급 안티봇 시스템의 일부입니다([Learn More](https://www.cloudflare.com/learning/ddos/glossary/web-application-firewall-waf/)):  
 
 ![Web Application Firewall example](https://github.com/bright-kr/bypass-captcha-with-cypress/blob/main/images/Example-of-a-Web-Application-Firewall-1024x488.png)
 
 이러한 시스템에서 CAPTCHA는 웹사이트가 사용자가 봇일 수 있다고 의심할 때 동적으로 트리거됩니다. 즉, 실제 브라우저를 사용하고 사람의 상호작용을 모방하는 등 봇이 실제 인간처럼 행동하도록 만들면 때로는 이를 피할 수 있습니다.
 
-그러나 CAPTCHA 우회는 봇 탐지 조치가 지속적으로 진화하기 때문에 계속되는 과제입니다. 자동화 스크립트는 새로운 アンチボット 기법에 대응하기 위해 자주 업데이트되어야 합니다.
+그러나 CAPTCHA 우회는 봇 탐지 조치가 지속적으로 진화하기 때문에 계속되는 과제입니다. 자동화 스크립트는 새로운 안티봇 기법에 대응하기 위해 자주 업데이트되어야 합니다.
 
 ## CAPTCHA와 Cypress: 어려운 관계
 
-[Cypress](https://www.cypress.io/)는 현대 웹을 위해 설계된 프런트엔드 테스트 도구입니다. Webスクレイピング과 같은 일반적인 브라우저 자동화 작업에도 사용할 수 있지만, 주요 초점은 [end-to-end (E2E) testing](https://www.techtarget.com/searchsoftwarequality/definition/End-to-end-testing)입니다. 이는 Cypress가 사용자가 제어하는 웹사이트 및 애플리케이션과 상호작용하는 데 가장 적합하다는 의미입니다.  
+[Cypress](https://www.cypress.io/)는 현대 웹을 위해 설계된 프런트엔드 테스트 도구입니다. Web스크레이핑과 같은 일반적인 브라우저 자동화 작업에도 사용할 수 있지만, 주요 초점은 [end-to-end (E2E) testing](https://www.techtarget.com/searchsoftwarequality/definition/End-to-end-testing)입니다. 이는 Cypress가 사용자가 제어하는 웹사이트 및 애플리케이션과 상호작용하는 데 가장 적합하다는 의미입니다.  
 
 Cypress를 외부 또는 서드파티 웹사이트를 대상으로 사용하면 문제가 발생할 수 있습니다. [공식 Cypress 문서](https://docs.cypress.io/guides/references/best-practices)는 가능하면 서드파티 사이트와의 상호작용을 피할 것을 권장합니다. 그 핵심 이유 중 하나는 봇으로 탐지되어 CAPTCHA를 만나게 될 위험입니다.  
 
@@ -72,7 +72,7 @@ CAPTCHA는 Cypress의 주요 과제 중 하나이지만, 아직 포기할 때는
 
 ![](https://github.com/bright-kr/bypass-captcha-with-cypress/blob/main/images/recaptcha_test.png)
 
-이 설정은 CAPTCHA가 프로덕션 용도가 아님을 나타내는 특별 경고 메시지를 표시합니다. 이 메시지를 클릭하도록 자동화하면 アンチボット 검증이 항상 통과됩니다. 자세한 내용은 [reCAPTCHA documentation](https://developers.google.com/recaptcha/docs/faq#id-like-to-run-automated-tests-with-recaptcha.-what-should-i-do)에서 확인할 수 있습니다.
+이 설정은 CAPTCHA가 프로덕션 용도가 아님을 나타내는 특별 경고 메시지를 표시합니다. 이 메시지를 클릭하도록 자동화하면 안티봇 검증이 항상 통과됩니다. 자세한 내용은 [reCAPTCHA documentation](https://developers.google.com/recaptcha/docs/faq#id-like-to-run-automated-tests-with-recaptcha.-what-should-i-do)에서 확인할 수 있습니다.
 
 다른 CAPTCHA 제공업체들도 테스트 환경을 위한 유사한 옵션을 제공합니다.
 
@@ -186,7 +186,7 @@ browsers: config.browsers.concat(antidetectBrowser),
 
 > **Note**:
 > 
-> Cypress가 anti-detect 브라우저에서 자동화 코드를 실행하도록 지시하면 봇으로 탐지될 가능성만 줄어듭니다. アンチボット 시스템이 사용자가 자동화 코드를 실행하고 있음을 이해하면, 사용자를 막기 위해 여전히 일부 CAPTCHA를 강제할 수 있습니다.
+> Cypress가 anti-detect 브라우저에서 자동화 코드를 실행하도록 지시하면 봇으로 탐지될 가능성만 줄어듭니다. 안티봇 시스템이 사용자가 자동화 코드를 실행하고 있음을 이해하면, 사용자를 막기 위해 여전히 일부 CAPTCHA를 강제할 수 있습니다.
 
 ## Cypress 솔루션이 작동하지 않습니다: 이제 무엇을 해야 합니까?
 
@@ -198,6 +198,6 @@ browsers: config.browsers.concat(antidetectBrowser),
 
 모두 시도해 볼 가치는 있지만, 어떤 방법도 Cypress 자동화에서 프로그래밍 방식으로 CAPTCHA를 우회할 수 있게 해주지는 않습니다.
 
-진짜 Cypress CAPTCHA bypasser를 찾고 있다면 Bright Data Webスクレイピング 솔루션을 사용해 보십시오. Bright Data에는 reCAPTCHA, hCaptcha, px\_captcha, SimpleCaptcha, GeeTest CAPTCHA, FunCaptcha, Cloudflare Turnstile, AWS WAF Captcha, KeyCAPTCHA 등과 그 밖의 다양한 CAPTCHA를 자동으로 처리하는 [전용 CAPTCHA 해결 기능](https://brightdata.co.kr/products/web-unlocker/captcha-solver)이 있습니다.
+진짜 Cypress CAPTCHA bypasser를 찾고 있다면 Bright Data Web스크레이핑 솔루션을 사용해 보십시오. Bright Data에는 reCAPTCHA, hCaptcha, px\_captcha, SimpleCaptcha, GeeTest CAPTCHA, FunCaptcha, Cloudflare Turnstile, AWS WAF Captcha, KeyCAPTCHA 등과 그 밖의 다양한 CAPTCHA를 자동으로 처리하는 [전용 CAPTCHA 해결 기능](https://brightdata.co.kr/products/web-unlocker/captcha-solver)이 있습니다.
 
 오늘 무료 체험으로 시작해 보십시오.
